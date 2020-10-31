@@ -3,6 +3,7 @@
 <head>
 	<title>Login</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
 </head>
 <style>
 	body{
@@ -16,7 +17,7 @@
 		text-decoration: none;
 		font-size: 16px;
 		cursor: pointer;
-	    border-radius: 3px;
+	 border-radius: 3px;
 	}
 	#btnReg{
 		background-color: #008CBA;
@@ -25,7 +26,7 @@
 		background-color: #4CAF50;
 	}
 	/* Full-width input fields */
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=email] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -37,49 +38,39 @@ input[type=text], input[type=password] {
 
 /* Set a style for all buttons */
 .button {
-  background-color: #4CAF50;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
   cursor: pointer;
-  width: 100%;
 }
 
 .button:hover {
   opacity: 0.8;
 }
 
-/* Extra styles for the cancel button */
-.cancelbtn {
-  width: auto;
-  padding: 10px 18px;
-  background-color: #f44336;
-}
-
 /* Center the image and position the close button */
 .imgcontainer {
   text-align: center;
-  margin: 24px 0 12px 0;
+  margin: 20px 0 10px 0;
   position: relative;
 }
 
 img.avatar {
-  width: 50%;
+  width: 30%;
   border-radius: 50%;
 }
 
 .container {
   padding: 16px;
 }
-
 span.psw {
   float: right;
   padding-top: 16px;
 }
 
 /* The Modal (background) */
-.modal {
+.modal, .modal2 {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -90,7 +81,7 @@ span.psw {
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  padding-top: 60px;
+  padding-top: 30px;
 }
 
 /* Modal Content/Box */
@@ -98,7 +89,7 @@ span.psw {
   background-color: #fefefe;
   margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
   border: 1px solid #888;
-  width: 40%; /* Could be more or less, depending on screen size */
+  width: 30%; /* Could be more or less, depending on screen size */
 }
 
 /* The Close Button (x) */
@@ -139,18 +130,21 @@ span.psw {
      display: block;
      float: none;
   }
-  .cancelbtn {
-     width: 100%;
-  }
+}
+.cancelbtn2,.cancelbtn{
+  background-color: #f44336;
+}
+.btnAceptar2,.btnLogin{
+  background-color: #4CAF50;
 }
 </style>
 <body>
 	<center>
 		<h2>Registrarse o iniciar sesión</h2>
-		<button id="btnReg" onclick="aviso();">Registrarse</button>
+		<button id="btnReg" onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Registrarse</button>
 		<button id="btnSing" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Iniciar sesión</button>
 
-		
+		<!--Inicio de sesión-->
 	<div id="id01" class="modal">  
 		<form class="modal-content animate" action="login.php" method="post">
 		    <div class="imgcontainer">
@@ -160,19 +154,41 @@ span.psw {
 
 		    <div class="container">
 		      <label for="uname"><b>Username</b></label>
-		      <input type="text" placeholder="Enter Username" name="uname" required>
+		      <input type="text" placeholder="Usuario..." name="uname" required>
 
 		      <label for="psw"><b>Password</b></label>
-		      <input type="password" placeholder="Enter Password" name="psw" required>
-		        
-		      <button type="submit" class="button">Login</button>
-		    </div>
-
-		    <div class="container" style="background-color:#f1f1f1">
-		      <button type="button" class="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-		      <span class="psw">Forgot <a href="#">password?</a></span>
-		    </div>
+		      <input type="password" placeholder="Contraseña..." name="psw" required>
+		      <button type="button" class="button cancelbtn" onclick="document.getElementById('id01').style.display='none'">Cancel</button> 
+		      <button type="submit" class="button btnLogin">Login</button>
+		    </div>		      
 		</form>
+    </div>
+
+    <!--Registro-->
+    <div id="id02" class="modal2">  
+    <form class="modal-content animate" action="registro.php" method="post">
+        <div class="imgcontainer">
+          <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+          <img src="img/user.png" alt="Avatar" class="avatar">
+        </div>
+
+        <div class="container">
+          <label for="uname"><b>Username</b></label>
+          <input type="text" placeholder="Nombre de Usuario..." name="uname" required>
+
+          <label for="mail"><b>Correo</b></label>
+          <input type="email" placeholder="Correo..." name="mail" required>
+
+          <label for="psw1"><b>Contraseña</b></label>
+          <input type="text" placeholder="Contraseña..." name="psw1" required>
+
+          <label for="psw2"><b>Confirmar contraseña</b></label>
+          <input type="text" placeholder="Confirmar contraseña..." name="psw2" required>
+          <button type="button" class="button cancelbtn2" onclick="document.getElementById('id02').style.display='none'">Cancel</button> 
+          <button type="submit" class="button btnAceptar2">Aceptar</button>
+
+        </div>          
+    </form>
     </div>
 	</center>
 </body>
@@ -182,12 +198,15 @@ span.psw {
 	let modal=document.getElementById("id01");
 	window.onclick=function(event){
 		if(event.target==modal){
-			moda.style.display="none";
+			modal.style.display="none";
 		}
 	}
 
-	function aviso(){
-		alert("En desarrollo");
-	}
+	let modal2=document.getElementById("id02");
+  window.onclick=function(event){
+    if(event.target==modal2){
+      modal2.style.display="none";
+    }
+  }
 </script>
 </html>
